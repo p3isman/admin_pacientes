@@ -1,6 +1,19 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from 'react';
 
 const Form = () => {
+  // Citas state
+  const [cita, setCita] = useState({
+    mascota: '',
+    propietario: '',
+    fecha: '',
+    hora: '',
+    sintomas: '',
+  });
+
+  const updateCita = () => {
+    console.log('escribiendo');
+  };
+
   return (
     <Fragment>
       <h2>Crear cita</h2>
@@ -11,6 +24,7 @@ const Form = () => {
           name='mascota'
           className='u-full-width'
           placeholder='Nombre de la mascota'
+          onChange={updateCita}
         />
         <label>Nombre Dueño</label>
         <input

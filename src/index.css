@@ -22,7 +22,7 @@ h2 {
 
   text-transform: uppercase;
 
-  font-family: "Staatliches", cursive;
+  font-family: 'Staatliches', cursive;
   letter-spacing: 1px;
 }
 .lista-citas .media {
@@ -47,8 +47,8 @@ label {
   color: white;
 }
 
-input[type="date"],
-input[type="time"] {
+input[type='date'],
+input[type='time'] {
   height: 38px;
   padding: 6px 10px;
   background-color: #fff;
@@ -94,5 +94,5 @@ input[type="time"] {
   font-size: 2rem;
   text-transform: uppercase;
   text-align: center;
-  font-family: "Staatliches", cursive;
+  font-family: 'Staatliches', cursive;
 }
