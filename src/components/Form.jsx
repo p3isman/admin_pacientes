@@ -1,15 +1,20 @@
 import React, { Fragment, useState } from 'react';
+import {v4 as uuidv4} from 'uuid';
 
-const Form = () => {
-  // Citas state
-  const [cita, setCita] = useState({
+const Form = ({addCita}) => {
+  // Citas initial this.state.
+  const initialState = {
     mascota: '',
     propietario: '',
     fecha: '',
     hora: '',
     sintomas: '',
-  });
+  }
 
+  // Citas state
+  const [cita, setCita] = useState(initialState);
+
+  // Form validation
   const [error, setError] = useState(false);
 
   const updateCita = e => {
@@ -23,7 +28,7 @@ const Form = () => {
   const {mascota, propietario, fecha, hora, sintomas} = cita;
 
   // On submit
-  const addCita = e => {
+  const submitCita = e => {
     // Prevent GET method on submit
     e.preventDefault();
 
@@ -33,8 +38,18 @@ const Form = () => {
         setError(true);
         return;
       }
-
+    
+    // Delete error message
     setError(false);
+
+    // Assign ID
+    cita.id = uuidv4();
+
+    // Create cita
+    addCita(cita);
+
+    // Reset fields
+    setCita(initialState);
   }
 
   return (
@@ -44,7 +59,7 @@ const Form = () => {
       {error ? <p className='alerta-error'>Todos los campos son obligatorios</p> : null}
 
       <form
-        onSubmit={addCita}
+        onSubmit={submitCita}
       >
         <label>Nombre Mascota</label>
         <input
@@ -73,7 +88,8 @@ const Form = () => {
           value={fecha}
         />
         <label>Hora</label>
-        <input type='time' 
+        <input 
+          type='time' 
           name='hora' 
           className='u-full-width' 
           onChange={updateCita}
