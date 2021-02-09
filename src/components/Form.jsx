@@ -10,14 +10,42 @@ const Form = () => {
     sintomas: '',
   });
 
-  const updateCita = () => {
-    console.log('escribiendo');
+  const [error, setError] = useState(false);
+
+  const updateCita = e => {
+    setCita({
+      ...cita,
+      [e.target.name]: e.target.value
+    });
   };
+
+  // Access field values to reset them on submit
+  const {mascota, propietario, fecha, hora, sintomas} = cita;
+
+  // On submit
+  const addCita = e => {
+    // Prevent GET method on submit
+    e.preventDefault();
+
+    // Validation
+    if (mascota === '' || propietario === '' || fecha === '' || hora === '' ||
+      sintomas === '') {
+        setError(true);
+        return;
+      }
+
+    setError(false);
+  }
 
   return (
     <Fragment>
       <h2>Crear cita</h2>
-      <form>
+
+      {error ? <p className='alerta-error'>Todos los campos son obligatorios</p> : null}
+
+      <form
+        onSubmit={addCita}
+      >
         <label>Nombre Mascota</label>
         <input
           type='text'
@@ -25,6 +53,7 @@ const Form = () => {
           className='u-full-width'
           placeholder='Nombre de la mascota'
           onChange={updateCita}
+          value={mascota}
         />
         <label>Nombre Dueño</label>
         <input
@@ -32,14 +61,34 @@ const Form = () => {
           name='propietario'
           className='u-full-width'
           placeholder='Nombre del dueño'
+          onChange={updateCita}
+          value={propietario}
         />
         <label>Fecha</label>
-        <input type='date' name='fecha' className='u-full-width' />
+        <input 
+          type='date' 
+          name='fecha'
+          className='u-full-width'
+          onChange={updateCita}
+          value={fecha}
+        />
         <label>Hora</label>
-        <input type='time' name='hora' className='u-full-width' />
+        <input type='time' 
+          name='hora' 
+          className='u-full-width' 
+          onChange={updateCita}
+          value={hora}
+        />
         <label>Síntomas</label>
-        <textarea name='sintomas' className='u-full-width' />
-        <button type='submit' className='u-full-width button-primary'>
+        <textarea 
+          name='sintomas' 
+          className='u-full-width' 
+          onChange={updateCita}
+          value={sintomas}
+        />
+        <button 
+          type='submit' 
+          className='u-full-width button-primary'>
           Agregar cita
         </button>
       </form>
