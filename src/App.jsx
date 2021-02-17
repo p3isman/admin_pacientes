@@ -1,15 +1,30 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import Form from './components/Form';
 import Cita from './components/Cita';
 
 function App() {
-  // Array of Citas
-  const [citas, setCitas] = useState([]);
+  // Retrieve citas from local storage
+  let initialCitas = JSON.parse(localStorage.getItem('citas'));
 
-  // Function to add cita
+  // Array of Citas
+  const [citas, setCitas] = useState(initialCitas);
+
+  useEffect(() => localStorage.setItem('citas', JSON.stringify(citas)), [citas]);
+  
+  // Add cita
   const addCita = cita => {
     setCitas([...citas, cita]);
   }
+
+  // Remove cita
+  const removeCita = id => {
+    const newCitas = citas.filter(cita => cita.id !== id);
+    setCitas([...newCitas]);
+  }
+
+  // Title
+  const titulo = citas.length === 0 ? 'No tienes citas' : 'Administra tus citas';
+
 
   return (
     <Fragment>
@@ -22,12 +37,11 @@ function App() {
             />
           </div>
           <div className='one-half column'>
-            <h2>Administra tus citas</h2>
+            <h2>{titulo}</h2>
             {citas.map(cita => (
-              <Cita 
+              <Cita
                 cita={cita}
-                citas={citas}
-                setCitas={setCitas}
+                removeCita={removeCita}
               />
             ))}
           </div>

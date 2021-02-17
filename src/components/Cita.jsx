@@ -1,28 +1,29 @@
 import React, {Fragment} from 'react'
+import PropTypes from 'prop-types'
 
-const Citas = ({cita, citas, setCitas}) => {
-  const {mascota, propietario, fecha, hora, sintomas, id} = cita;
-
-  // Remove cita
-  const removeCita = id => {
-    const newCitas = citas.filter(item => item.id !== id);
-    setCitas([...newCitas]);
-  }
-
+const Cita = ({cita, removeCita}) => {
   return (
     <Fragment>
       <div className='cita'>
 
-        <p>Mascota: <span>{mascota}</span></p>
-        <p>Propietario: <span>{propietario}</span></p>
-        <p>Fecha: <span>{fecha}</span></p>
-        <p>Hora: <span>{hora}</span></p>
-        <p>Sintomas: <span>{sintomas}</span></p>
+        <p>Mascota: <span>{cita.mascota}</span></p>
+        <p>Propietario: <span>{cita.propietario}</span></p>
+        <p>Fecha: <span>{cita.fecha}</span></p>
+        <p>Hora: <span>{cita.hora}</span></p>
+        <p>Sintomas: <span>{cita.sintomas}</span></p>
         
-        <button className='button eliminar' onClick={() => removeCita(id)}>Remove</button>
+        <button 
+          className='button eliminar u-full-width'
+          onClick={() => removeCita(cita.id)}
+          >Eliminar &times;</button>
       </div>    
     </Fragment>
   )
 }
 
-export default Citas
+Cita.propTypes = {
+  cita: PropTypes.object.isRequired,
+  removeCita: PropTypes.func.isRequired,
+}
+
+export default Cita

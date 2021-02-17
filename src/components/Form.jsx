@@ -1,8 +1,9 @@
 import React, { Fragment, useState } from 'react';
 import {v4 as uuidv4} from 'uuid';
+import PropTypes from 'prop-types';
 
 const Form = ({addCita}) => {
-  // Citas initial this.state.
+  // Citas initial state.
   const initialState = {
     mascota: '',
     propietario: '',
@@ -111,5 +112,9 @@ const Form = ({addCita}) => {
     </Fragment>
   );
 };
+
+Form.propTypes = {
+  addCita: PropTypes.func.isRequired,
+}
 
 export default Form;
